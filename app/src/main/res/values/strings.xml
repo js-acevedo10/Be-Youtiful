@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Be-Youtiful</string>
+
+    <string name="facebook_app_id">1606805202897396</string>
+    <string name="title_activity_login">LoginActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <!--Navigation Drawer-->
+    <string name="navigation_item_1">INICIO</string>
+    <string name="navigation_item_2">MIS RESERVAS</string>
+    <string name="navigation_item_3">CERRAR SESION</string>
+    <string name="title_activity_appointment">Reservar Una Cita</string>
+</resources>
