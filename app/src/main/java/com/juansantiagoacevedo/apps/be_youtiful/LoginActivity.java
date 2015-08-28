@@ -1,20 +1,31 @@
 package com.juansantiagoacevedo.apps.be_youtiful;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
+import com.facebook.Profile;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
+import com.parse.ParseFile;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
+import org.json.JSONException;
+
+import java.io.ByteArrayOutputStream;
 import java.util.Arrays;
 import java.util.List;
 
@@ -36,6 +47,16 @@ public class LoginActivity extends AppCompatActivity {
         ParseFacebookUtils.onActivityResult(requestCode, resultCode, data);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
+    //*****************************************
+    //METODOS PROPIOS
+    //*****************************************
+
     public void inicializarLayout() {
 
         fbPermissions = Arrays.asList(getResources().getStringArray(R.array.my_facebook_permissions));
@@ -48,26 +69,21 @@ public class LoginActivity extends AppCompatActivity {
                         fbPermissions, new LogInCallback() {
                             @Override
                             public void done(ParseUser parseUser, ParseException e) {
+                                if(e != null) {
+                                    e.printStackTrace();
+                                }
                                 if(parseUser == null) {
                                     Toast.makeText(LoginActivity.this, "Error al iniciar Sesion", Toast.LENGTH_LONG).show();
+                                } else if(parseUser.isNew()) {
+                                    setResult(2);
+                                    finish();
                                 } else {
-                                    Toast.makeText(LoginActivity.this, "Success", Toast.LENGTH_LONG).show();
+                                    setResult(1);
+                                    finish();
                                 }
                             }
                         });
             }
         });
-        /**
-         Spannable loginButtonLabel = new SpannableString(loginButton.getText());
-         loginButtonLabel.setSpan(
-         new ImageSpan(
-         getApplicationContext(),
-         R.drawable.com_facebook_button_icon,
-         ImageSpan.ALIGN_BOTTOM),
-         0,
-         1,
-         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-         loginButton.setText(loginButtonLabel);
-         */
     }
 }

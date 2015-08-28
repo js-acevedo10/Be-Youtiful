@@ -30,12 +30,11 @@
 
     <!-- Imagen de perfil -->
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/circle_image"
+        android:id="@+id/drawer_circle_image"
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_marginBottom="16dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/nuevo_logo"
         app:border_color="@android:color/white"
         app:border_width="1dp" />
 
