@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="1sp"
             android:paddingBottom="10sp"
-            android:src="@drawable/ic_booking"
+            android:src="@drawable/ic_booking_unfill"
             android:layout_weight="1.5"/>
 
         <TextView
@@ -52,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="1sp"
             android:paddingBottom="10sp"
-            android:src="@drawable/ic_facebook"
+            android:src="@drawable/ic_facebook_unfill"
             android:layout_weight="1.5"/>
 
         <TextView
@@ -82,7 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_height="1sp"
             android:paddingBottom="10sp"
-            android:src="@drawable/ic_instagram"
+            android:src="@drawable/ic_instagram_unfill"
             android:layout_weight="1.5"/>
 
         <TextView

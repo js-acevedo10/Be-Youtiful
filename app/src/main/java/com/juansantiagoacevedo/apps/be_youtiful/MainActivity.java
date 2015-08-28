@@ -54,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
     CircleImageView mProfileImage;
     public Fragment fragmentoActual;
     public NavigationView mNavigationView;
+    public FacebookFragment facebookFragment;
+    public InstagramFragment instagramFragment;
 
     public Button button_cerrar;
 
@@ -82,6 +84,28 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         AppEventsLogger.deactivateApp(this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        FragmentManager fragmentManager = getFragmentManager();
+
+        if(fragmentoActual.equals(facebookFragment)) {
+            if(facebookFragment.canDoBack()) {
+                facebookFragment.doBack();
+            } else {
+                fragmentManager.popBackStack();
+            }
+        } else if(fragmentoActual.equals(instagramFragment)) {
+            if(instagramFragment.canDoBack()) {
+                instagramFragment.doBack();
+            } else {
+                fragmentManager.popBackStack();
+            }
+        } else {
+            super.onBackPressed();
+        }
+
     }
 
     @Override
@@ -179,13 +203,24 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean mostrarFragmento(int posicion) {
 
+        String name = "";
         switch (posicion) {
             case 0:
                 fragmentoActual = new HomeFragment();
+                name = "Home";
                 break;
             case 1:
+                name = "Reservar";
                 break;
             case 2:
+                facebookFragment = new FacebookFragment();
+                fragmentoActual = facebookFragment;
+                name = "Facebook";
+                break;
+            case 3:
+                name = "Instagram";
+                instagramFragment = new InstagramFragment();
+                fragmentoActual = instagramFragment;
                 break;
             default:
                 fragmentoActual = new HomeFragment();
@@ -195,7 +230,7 @@ public class MainActivity extends AppCompatActivity {
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction()
                     .replace(R.id.content_fragment, fragmentoActual)
-                    .addToBackStack("fragmento")
+                    .addToBackStack(name)
                     .commit();
             return true;
         }
@@ -203,15 +238,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClicReservar(View view) {
-
+        mostrarFragmento(1);
     }
 
     public void onClicFacebook(View view) {
-
+        mostrarFragmento(2);
     }
 
     public void onClicInstagram(View view) {
-
+        mostrarFragmento(3);
     }
 
     public void getDetailsFromParse() {
@@ -282,13 +317,11 @@ public class MainActivity extends AppCompatActivity {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         String thumbName = currentUser.getUsername().replaceAll("\\s+", "")+ "_thumb.jpg";
         ParseFile parseFile = new ParseFile(thumbName, stream.toByteArray());
-        Log.v("NOMBRRE", parseFile.getName());
 
         try {
             parseFile.save();
             currentUser.put("profileThumb", parseFile);
             currentUser.save();
-            Log.v("LOGRO", "Yes");
         } catch (ParseException e) {
             Log.e("ERRORRR", e.getMessage());
         }
@@ -322,9 +355,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            if((CircleImageView) findViewById(R.id.drawer_circle_image) == null) {
-                Log.v("PUTA", "PUTAAAA");
-            }
             mProfileImage.setImageBitmap(bitmap);
             saveNewUser();
         }
@@ -346,4 +376,8 @@ public class MainActivity extends AppCompatActivity {
         }
         return bm;
     }
+
+    //***************************************************************
+    //INTERFAZ FACEBOOKFRAGMENT
+    //***************************************************************
 }

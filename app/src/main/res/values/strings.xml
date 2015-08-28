@@ -21,4 +21,7 @@
     <string name="reservar_action">Reserva una Cita</string>
     <string name="facebook_action">Visita nuestro Muro de Facebook</string>
     <string name="instagram_action">Visita nuestro Perfil en Instagram</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
