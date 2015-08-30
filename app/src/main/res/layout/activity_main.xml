@@ -18,12 +18,6 @@
             android:layout_height="fill_parent">
         </FrameLayout>
 
-        <!--<Button
-            android:id="@+id/btnClose"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cerrar Sesion Temporal"/>-->
-
     </LinearLayout>
 
     <android.support.design.widget.NavigationView

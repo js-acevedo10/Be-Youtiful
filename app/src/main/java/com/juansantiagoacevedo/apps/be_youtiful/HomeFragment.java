@@ -1,14 +1,11 @@
 package com.juansantiagoacevedo.apps.be_youtiful;
 
 import android.app.Activity;
-import android.net.Uri;
-import android.os.Bundle;
 import android.app.Fragment;
-import android.support.annotation.Nullable;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 
 public class HomeFragment extends Fragment{

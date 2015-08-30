@@ -18,7 +18,6 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.facebook.AccessToken;
@@ -30,6 +29,7 @@ import com.facebook.appevents.AppEventsLogger;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
+
 import org.json.JSONException;
 
 import java.io.BufferedInputStream;
@@ -56,8 +56,6 @@ public class MainActivity extends AppCompatActivity {
     public NavigationView mNavigationView;
     public FacebookFragment facebookFragment;
     public InstagramFragment instagramFragment;
-
-    public Button button_cerrar;
 
     //********************************************
     //METODOS POR HERENCIA Y EXTENSION EN OVERRIDE
@@ -170,15 +168,15 @@ public class MainActivity extends AppCompatActivity {
                 drawerLayout.closeDrawer(Gravity.LEFT);
                 switch (menuItem.getItemId()) {
                     case R.id.navigation_item_1:
+                        nItemDrawerSelected = 0;
+                        menuItem.setChecked(mostrarFragmento(0));
+                        break;
+                    case R.id.navigation_item_2:
                         nItemDrawerSelected = 1;
                         menuItem.setChecked(mostrarFragmento(1));
                         break;
-                    case R.id.navigation_item_2:
-                        nItemDrawerSelected = 2;
-                        menuItem.setChecked(mostrarFragmento(2));
-                        break;
                     case R.id.navigation_item_3:
-                        nItemDrawerSelected = 1;
+                        nItemDrawerSelected = 0;
                         logoutCurrentUser();
                         break;
                     default:
