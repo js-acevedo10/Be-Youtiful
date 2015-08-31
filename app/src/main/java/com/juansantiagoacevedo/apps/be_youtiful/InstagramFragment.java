@@ -2,7 +2,6 @@ package com.juansantiagoacevedo.apps.be_youtiful;
 
 
 import android.app.Fragment;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
@@ -96,7 +95,8 @@ public class InstagramFragment extends Fragment implements View.OnClickListener{
     }
 
     public boolean canDoBack() {
-        return instagramWebView.canGoBack();
+        if(instagramWebView != null) {return instagramWebView.canGoBack();}
+        return false;
     }
 
     public void doBack() {

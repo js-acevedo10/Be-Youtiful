@@ -86,7 +86,8 @@ public class FacebookFragment extends Fragment implements View.OnClickListener{
     }
 
     public boolean canDoBack() {
-        return facebookWebView.canGoBack();
+        if(facebookWebView != null) {return facebookWebView.canGoBack();}
+        return false;
     }
 
     public void doBack() {
