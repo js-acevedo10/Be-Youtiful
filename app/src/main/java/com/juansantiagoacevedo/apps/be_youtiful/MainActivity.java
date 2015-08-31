@@ -7,8 +7,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -26,6 +28,9 @@ import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
 import com.facebook.Profile;
 import com.facebook.appevents.AppEventsLogger;
+import com.konifar.fab_transformation.FabTransformation;
+import com.malinskiy.materialicons.IconDrawable;
+import com.malinskiy.materialicons.Iconify;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
@@ -56,6 +61,9 @@ public class MainActivity extends AppCompatActivity {
     public NavigationView mNavigationView;
     public FacebookFragment facebookFragment;
     public InstagramFragment instagramFragment;
+    public HomeFragment homeFragment;
+    public ReservasFragment reservasFragment;
+    FloatingActionButton fabFacebook, fabInstagram, fabReservas;
 
     //********************************************
     //METODOS POR HERENCIA Y EXTENSION EN OVERRIDE
@@ -69,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
         inicializarNavDrawer();
         inicializarLayout();
         checkUser();
-        mostrarFragmento(nItemDrawerSelected);
     }
 
     @Override
@@ -86,19 +93,21 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        FragmentManager fragmentManager = getFragmentManager();
-
         if(fragmentoActual.equals(facebookFragment)) {
             if(facebookFragment.canDoBack()) {
                 facebookFragment.doBack();
             } else {
-                fragmentManager.popBackStack();
+                FabTransformation.with(fabFacebook).transformFrom(findViewById(R.id.content_fragment_facebook));
+                homeFragment = new HomeFragment();
+                fragmentoActual = homeFragment;
             }
         } else if(fragmentoActual.equals(instagramFragment)) {
             if(instagramFragment.canDoBack()) {
                 instagramFragment.doBack();
             } else {
-                fragmentManager.popBackStack();
+                FabTransformation.with(fabInstagram).transformFrom(findViewById(R.id.content_fragment_instagram));
+                homeFragment = new HomeFragment();
+                fragmentoActual = homeFragment;
             }
         } else {
             super.onBackPressed();
@@ -169,11 +178,12 @@ public class MainActivity extends AppCompatActivity {
                 switch (menuItem.getItemId()) {
                     case R.id.navigation_item_1:
                         nItemDrawerSelected = 0;
-                        menuItem.setChecked(mostrarFragmento(0));
+                        //TODO: menuItem.setChecked(mostrarFragmento(0));
                         break;
                     case R.id.navigation_item_2:
-                        nItemDrawerSelected = 1;
-                        menuItem.setChecked(mostrarFragmento(1));
+                        reservasFragment = new ReservasFragment();
+                        fragmentoActual = reservasFragment;
+                        mostrarFragmento("reservas");
                         break;
                     case R.id.navigation_item_3:
                         nItemDrawerSelected = 0;
@@ -197,45 +207,90 @@ public class MainActivity extends AppCompatActivity {
         drawer_name = (TextView) findViewById(R.id.drawer_name);
         drawer_email = (TextView) findViewById(R.id.drawer_mail);
         mProfileImage = (CircleImageView) findViewById(R.id.drawer_circle_image);
-    }
 
-    public boolean mostrarFragmento(int posicion) {
+        homeFragment = new HomeFragment();
+        fragmentoActual = homeFragment;
+        mostrarFragmento("home");
 
-        String name = "";
-        switch (posicion) {
-            case 0:
-                fragmentoActual = new HomeFragment();
-                name = "Home";
-                break;
-            case 1:
-                name = "Reservar";
-                break;
-            case 2:
+        fabFacebook = (FloatingActionButton) findViewById(R.id.FAB_facebook);
+        fabFacebook.setImageDrawable(new IconDrawable(this, Iconify.IconValue.zmdi_facebook).colorRes(android.R.color.white));
+        fabFacebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(fragmentoActual != null && fragmentoActual.equals(instagramFragment)) {
+                    instagramFragment.activarLoad();
+                    FabTransformation.with(fabInstagram)
+                            .transformFrom(findViewById(R.id.content_fragment_instagram));
+                }
                 facebookFragment = new FacebookFragment();
                 fragmentoActual = facebookFragment;
-                name = "Facebook";
-                break;
-            case 3:
-                name = "Instagram";
+                FabTransformation.with(fabFacebook)
+                        .transformTo(findViewById(R.id.content_fragment_facebook));
+                mostrarFragmento("facebook");
+            }
+        });
+
+        fabInstagram = (FloatingActionButton) findViewById(R.id.FAB_instagram);
+        fabInstagram.setImageDrawable(new IconDrawable(this, Iconify.IconValue.zmdi_instagram).colorRes(android.R.color.white));
+        fabInstagram.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(fragmentoActual != null && fragmentoActual.equals(facebookFragment)) {
+                    facebookFragment.activarLoad();
+                    FabTransformation.with(fabFacebook)
+                            .transformFrom(findViewById(R.id.content_fragment_facebook));
+                }
                 instagramFragment = new InstagramFragment();
                 fragmentoActual = instagramFragment;
-                break;
-            default:
-                fragmentoActual = new HomeFragment();
-                break;
-        }
-        if(fragmentoActual != null) {
+                FabTransformation.with(fabInstagram)
+                        .transformTo(findViewById(R.id.content_fragment_instagram));
+                mostrarFragmento("instagram");
+            }
+        });
+
+        fabReservas = (FloatingActionButton) findViewById(R.id.FAB_reservas);
+        fabReservas.setImageDrawable(new IconDrawable(this, Iconify.IconValue.zmdi_plus).colorRes(android.R.color.white));
+    }
+
+    public boolean mostrarFragmento(String name) {
+
+        if(name.equals("facebook")) {
+            if(fragmentoActual != null) {
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.content_fragment_facebook, fragmentoActual)
+                        .commit();
+                return true;
+            }
+        } else if(name.equals("instagram")) {
+            if(fragmentoActual != null) {
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.content_fragment_instagram, fragmentoActual)
+                        .commit();
+                return true;
+            }
+        } else if(name.equals("home")) {
+            if(fragmentoActual != null) {
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.content_fragment_home, fragmentoActual)
+                        .commit();
+                return true;
+            }
+        } else if(name.equals("reservas")) {
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction()
-                    .replace(R.id.content_fragment, fragmentoActual)
-                    .addToBackStack(name)
+                    .replace(R.id.content_fragment_home, fragmentoActual)
                     .commit();
             return true;
         }
+
+
         return false;
     }
 
-    public void onClicReservar(View view) {
+    /**public void onClicReservar(View view) {
         mostrarFragmento(1);
     }
 
@@ -245,7 +300,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClicInstagram(View view) {
         mostrarFragmento(3);
-    }
+    }**/
 
     public void getDetailsFromParse() {
         fbProfile = Profile.getCurrentProfile();

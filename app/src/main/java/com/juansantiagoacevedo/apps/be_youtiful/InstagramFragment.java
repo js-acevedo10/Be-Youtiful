@@ -59,7 +59,10 @@ public class InstagramFragment extends Fragment implements View.OnClickListener{
     public void prepareLayout() {
 
         instagramWebView = (WebView) rootView.findViewById(R.id.instagram_webview);
-        ConnectivityManager conMgr = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager conMgr = null;
+        if(getActivity() != null) {
+            conMgr = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        }
         NetworkInfo i = conMgr.getActiveNetworkInfo();
         final Drawable emptyDrawable = new IconDrawable(rootView.getContext(), Iconify.IconValue.zmdi_wifi_off)
                 .colorRes(android.R.color.white);
@@ -98,6 +101,24 @@ public class InstagramFragment extends Fragment implements View.OnClickListener{
 
     public void doBack() {
         instagramWebView.goBack();
+    }
+
+    public void activarLoad() {
+        if(!progressActivity.isError()) {
+            progressActivity.showLoading();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    checkMe();
+                }
+            }, 600);
+        }
+    }
+
+    public void checkMe() {
+        String x = "name";
+        if(x.equals("name")) x = "namee";
     }
 
     @Override

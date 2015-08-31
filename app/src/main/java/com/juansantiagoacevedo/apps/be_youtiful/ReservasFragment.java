@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ReservasFragment extends Fragment {
+public class ReservasFragment extends Fragment implements View.OnClickListener{
 
     public View rootView;
 
@@ -28,5 +28,8 @@ public class ReservasFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onClick(View view) {
 
+    }
 }

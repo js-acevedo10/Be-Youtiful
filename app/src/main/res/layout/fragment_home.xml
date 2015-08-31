@@ -7,94 +7,11 @@
     tools:context="com.juansantiagoacevedo.apps.be_youtiful.HomeFragment"
     android:weightSum="3">
 
-    <LinearLayout
-        android:id="@+id/home_layout_reservar"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:weightSum="2"
-        android:onClick="onClicReservar"
-        android:background="@drawable/home_layout_border">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="1sp"
-            android:paddingBottom="10sp"
-            android:src="@drawable/ic_booking_unfill"
-            android:layout_weight="1.5"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/reservar_action"
-            android:paddingTop="10sp"
-            android:textSize="@dimen/text_size_title_material"
-            android:paddingBottom="10sp"
-            android:textColor="@android:color/black"
-            android:fontFamily="sans-serif-light"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/home_layout_facebook"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:weightSum="2"
-        android:onClick="onClicFacebook"
-        android:background="@drawable/home_layout_border">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="1sp"
-            android:paddingBottom="10sp"
-            android:src="@drawable/ic_facebook_unfill"
-            android:layout_weight="1.5"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/facebook_action"
-            android:paddingTop="10sp"
-            android:textSize="@dimen/text_size_title_material"
-            android:paddingBottom="10sp"
-            android:textColor="@android:color/black"
-            android:fontFamily="sans-serif-light"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/home_layout_instagram"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:weightSum="2"
-        android:onClick="onClicInstagram"
-        android:background="@drawable/home_layout_border">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="1sp"
-            android:paddingBottom="10sp"
-            android:src="@drawable/ic_instagram_unfill"
-            android:layout_weight="1.5"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/instagram_action"
-            android:paddingTop="10sp"
-            android:textSize="@dimen/text_size_title_material"
-            android:textColor="@android:color/black"
-            android:fontFamily="sans-serif-light"/>
-
-    </LinearLayout>
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:src="@drawable/nuevo_logo"
+        android:paddingBottom="100sp"
+        android:paddingLeft="10sp"
+        android:paddingRight="10sp"/>
 </LinearLayout>

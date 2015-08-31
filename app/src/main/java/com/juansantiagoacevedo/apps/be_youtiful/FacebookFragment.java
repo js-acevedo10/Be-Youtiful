@@ -93,6 +93,24 @@ public class FacebookFragment extends Fragment implements View.OnClickListener{
         facebookWebView.goBack();
     }
 
+    public void activarLoad() {
+        if(!progressActivity.isError()) {
+            progressActivity.showLoading();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    checkMe();
+                }
+            }, 600);
+        }
+    }
+
+    public void checkMe() {
+        String x = "name";
+        if(x.equals("name")) x = "namee";
+    }
+
     @Override
     public void onClick(View view) {
         progressActivity.showLoading();

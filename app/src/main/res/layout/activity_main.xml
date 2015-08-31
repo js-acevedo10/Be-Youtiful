@@ -7,15 +7,63 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="vertical"
-        android:gravity="center_horizontal|">
+        android:orientation="vertical">
 
         <include layout="@layout/toolbar"/>
 
         <FrameLayout
-            android:id="@+id/content_fragment"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
+            <FrameLayout
+                android:id="@+id/content_fragment_home"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+            </FrameLayout>
+
+            <io.codetail.widget.RevealFrameLayout
+                android:layout_height="fill_parent"
+                android:layout_width="fill_parent">
+
+                <FrameLayout
+                    android:id="@+id/content_fragment_facebook"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/content_fragment_instagram"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+                </FrameLayout>
+
+            </io.codetail.widget.RevealFrameLayout>
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/FAB_reservas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:layout_marginRight="40sp"
+                android:layout_gravity="bottom|center_horizontal|right"
+                android:layout_marginBottom="20sp" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/FAB_instagram"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="20sp" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/FAB_facebook"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:layout_marginLeft="40sp"
+                android:layout_gravity="left|bottom|center_horizontal"
+                android:layout_marginBottom="20sp" />
+
         </FrameLayout>
 
     </LinearLayout>
